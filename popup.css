@@ -1,0 +1,63 @@
+#git-tool-popup {
+    position: fixed;
+    top: 25%;
+    right: 3%;
+    z-index: 99999;
+    background: var(--bgColor-default, #0d1117);
+    border: 1px solid var(--borderColor-default, #30363d);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 8px 24px rgba(1, 4, 9, 0.8), 0 0 0 1px rgba(48, 54, 61, 0.2);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    color: var(--fgColor-default, #e6edf3);
+    min-width: 240px;
+}
+
+#git-tool-header {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 16px 16px 8px 16px;
+    border-bottom: 1px solid var(--borderColor-muted, #21262d);
+    cursor: move;
+    color: var(--fgColor-default, #e6edf3);
+    user-select: none;
+}
+
+.git-tool-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+    border: none;
+    border-bottom: 1px solid var(--borderColor-muted, #21262d);
+    cursor: pointer;
+    background: transparent;
+    color: var(--fgColor-default, #e6edf3);
+    font-weight: 500;
+    font-size: 14px;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.git-tool-button:hover {
+    background: var(--bgColor-muted, #161b22);
+}
+
+.git-tool-button:active {
+    background: var(--bgColor-neutral-muted, #21262d);
+}
+
+.git-tool-close {
+    margin: 0;
+    background: transparent;
+    color: var(--fgColor-muted, #7d8590);
+    border-bottom: none;
+    padding: 12px 16px;
+    border-radius: 0 0 12px 12px;
+}
+
+.git-tool-close:hover {
+    background: var(--bgColor-danger-muted, #490b0b);
+    color: var(--fgColor-danger, #ff7b72);
+}

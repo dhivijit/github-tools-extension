@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "GitHub Repo Tools Launcher",
+    "version": "1.1",
+    "description": "Launch repo analysis tools directly from GitHub.",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://github.com/*"
+    ],
+    "action": {
+        "default_title": "Open GitHub Repo Tools"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://github.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "popup.css"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "commands": {
+        "open-tools": {
+            "suggested_key": {
+                "default": "Alt+Shift+G"
+            },
+            "description": "Open GitHub Repo Tools"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}
