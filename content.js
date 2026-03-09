@@ -48,25 +48,24 @@ function openLauncher() {
     document.body.appendChild(popup);
 
         // ===== DRAG =====
-    let isDragging = false;
     let offsetX, offsetY;
 
-    header.onmousedown = (e) => {
-        isDragging = true;
-        offsetX = e.clientX - popup.offsetLeft;
-        offsetY = e.clientY - popup.offsetTop;
-    };
-
-    document.onmousemove = (e) => {
-        if (!isDragging) return;
-
+    function onMouseMove(e) {
         popup.style.left = (e.clientX - offsetX) + "px";
         popup.style.top = (e.clientY - offsetY) + "px";
         popup.style.right = "auto";
-    };
+    }
 
-    document.onmouseup = () => {
-        isDragging = false;
+    function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+    }
+
+    header.onmousedown = (e) => {
+        offsetX = e.clientX - popup.offsetLeft;
+        offsetY = e.clientY - popup.offsetTop;
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
     };
 }
 
@@ -77,7 +76,8 @@ function injectGithubButton() {
 
     if (document.getElementById("git-tools-btn")) return;
 
-    // Find the star button container
+    // NOTE: These selectors are tied to GitHub's HTML structure and may break when GitHub updates.
+    // If the Tools button stops appearing, check whether any of these selectors still match.
     const starButton = document.querySelector('button[data-hydro-click*="STAR"]') ||
         document.querySelector('button[aria-label*="Star"]') ||
         document.querySelector('form[action*="/unstar"] button') ||
@@ -119,9 +119,19 @@ function injectGithubButton() {
     container.parentElement.insertBefore(btn, container.nextSibling);
 }
 
-// Observe page changes (GitHub is SPA)
-const observer = new MutationObserver(injectGithubButton);
-observer.observe(document.body, { childList: true, subtree: true });
+// Observe page changes (GitHub is SPA) — debounced to avoid firing on every DOM mutation
+let _debounceTimer = null;
+function debouncedInject() {
+    clearTimeout(_debounceTimer);
+    _debounceTimer = setTimeout(injectGithubButton, 300);
+}
+
+// Guard against multiple observers if the script somehow re-runs
+if (!window._gitToolsObserverAttached) {
+    window._gitToolsObserverAttached = true;
+    const observer = new MutationObserver(debouncedInject);
+    observer.observe(document.body, { childList: true, subtree: true });
+}
 
 injectGithubButton();
 
