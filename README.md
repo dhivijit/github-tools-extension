@@ -4,6 +4,15 @@ A lightweight browser extension that adds a **Tools** button to every GitHub rep
 
 ---
 
+## Demo
+<div align="center">
+
+![Demo of the GitHub Repo Tools Launcher extension in action, showing the Tools button on a GitHub repo page and the popup with various tool options.](/demo.gif)
+
+</div>
+
+---
+
 ## Features
 
 Click the **Tools** button (next to the Star button on any repo page) or press `Alt+Shift+G` to open a draggable popup with the following tools:
