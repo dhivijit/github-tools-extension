@@ -28,7 +28,7 @@ function openLauncher() {
         const btn = document.createElement("button");
         btn.textContent = text;
         btn.className = `git-tool-button ${extra}`;
-        btn.onclick = () => window.open(url, "_blank");
+        btn.onclick = () => {window.open(url, "_blank");popup.remove();};
         return btn;
     }
 
@@ -37,6 +37,8 @@ function openLauncher() {
     popup.appendChild(createButton("📚 DeepWiki Docs", `https://deepwiki.com/${repoPath}`));
     popup.appendChild(createButton("💬 TalkToGitHub", `https://talktogithub.com/${repoPath}`));
     popup.appendChild(createButton("🧭 Git Diagram", `https://gitdiagram.com/${repoPath}`));
+    popup.appendChild(createButton("📦 CodeSandbox", `https://githubbox.com/${repoPath}`));
+    popup.appendChild(createButton("💻 VSCode Online", `https://github.dev/${repoPath}`));
 
     const closeBtn = createButton("Close", "#", "git-tool-close");
     closeBtn.onclick = () => popup.remove();
